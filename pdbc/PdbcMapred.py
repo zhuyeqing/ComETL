@@ -2,6 +2,7 @@
 import time
 import commands
 import PdbcUtility
+import pdbc_conf
 from Pdbc import pdbc
 
 mrjob_error = ['Output path already exists','Exception in thread "Main Thread"']
@@ -36,13 +37,13 @@ class PdbcMapred(pdbc):
                 self.logger(res[1],'error')
                 return False
         if params.get('officialsql',False):
-            suc_check_cmd = "/opt/modules/hadoop/hadoop-0.20.203.0/bin/hadoop fs -test -e %s/_SUCCESS" % (self.output_dir)
+            suc_check_cmd = "%s/bin/hadoop fs -test -e %s/_SUCCESS" % (pdbc_conf.HADOOP_HOME,self.output_dir)
             suc_check_res = commands.getstatusoutput(suc_check_cmd)
             if int(suc_check_res[0]) != 0:
                 self.logger(res[1],'error')
                 return False    
     
-            cmd = "/opt/modules/hadoop/hadoop-0.20.203.0/bin/hadoop fs -rmr %s/_logs %s/_SUCCESS" % (self.output_dir,self.output_dir)
+            cmd = "%s/bin/hadoop fs -rmr %s/_logs %s/_SUCCESS" % (pdbc_conf.HADOOP_HOME,self.output_dir,self.output_dir)
             res = commands.getstatusoutput(cmd)
         return True
 

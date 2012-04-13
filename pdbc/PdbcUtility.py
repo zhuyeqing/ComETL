@@ -3,10 +3,12 @@ import os
 import re
 import time
 import copy
+import pdbc_conf
 import commands
 
 #-----------------com pdbc functions-----------------#
-HADOOP_HOME = '/opt/modules/hadoop/hadoop-0.20.203.0'
+#HADOOP_HOME = '/opt/modules/hadoop/hadoop-0.20.203.0'
+HADOOP_HOME = pdbc_conf.HADOOP_HOME
 LOAD_CMD_BASE = '%s/bin/hadoop fs -put' % HADOOP_HOME
 
 def FakeOutput(src_db,out_file,args,logger):

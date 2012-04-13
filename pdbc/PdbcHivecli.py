@@ -2,6 +2,7 @@
 import os
 import time
 import commands
+import pdbc_conf
 import PdbcUtility
 from Pdbc import pdbc
 
@@ -33,9 +34,9 @@ class PdbcHivecli(pdbc):
         elif params.get('officialsql',False):
             self.outfile = params["outfile"]
             if os.path.isfile(self.hiveinitfile):
-                res = commands.getstatusoutput("""/opt/modules/hive/hive-0.7.1/bin/hive -i %s -S -e "%s" > %s """ % (self.hiveinitfile,sql,self.outfile))
+                res = commands.getstatusoutput("""%s/bin/hive -i %s -S -e "%s" > %s """ % (pdbc_conf.HIVE_HOME,self.hiveinitfile,sql,self.outfile))
             else:
-                res = commands.getstatusoutput("""/opt/modules/hive/hive-0.7.1/bin/hive -S -e "%s" > %s """ % (sql,self.outfile))
+                res = commands.getstatusoutput("""%s/bin/hive -S -e "%s" > %s """ % (pdbc_conf.HIVE_HOME,sql,self.outfile))
             if res[0] != 0:
                 self.logger(str(res),'error')
                 return False             
@@ -46,9 +47,9 @@ class PdbcHivecli(pdbc):
         else:
             #PdbcUtility.HiveInitQWrite(params.get("tmpdir",'/tmp'),"")
             if os.path.isfile(self.hiveinitfile):
-                res = commands.getstatusoutput("""/opt/modules/hive/hive-0.7.1/bin/hive -i %s -S -e "%s" """ % (self.hiveinitfile,sql))
+                res = commands.getstatusoutput("""%s/bin/hive -i %s -S -e "%s" """ % (pdbc_conf.HIVE_HOME,self.hiveinitfile,sql))
             else:
-                res = commands.getstatusoutput("""/opt/modules/hive/hive-0.7.1/bin/hive -S -e "%s" """ % (sql))
+                res = commands.getstatusoutput("""%s/bin/hive -S -e "%s" """ % (pdbc_conf.HIVE_HOME,sql))
             if res[0] != 0:
                 self.logger(str(res),'error')
                 return False             
