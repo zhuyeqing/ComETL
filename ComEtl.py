@@ -7,7 +7,7 @@ import time
 import pickle
 import commands
 import conf
-import DqsAlarm
+#import DqsAlarm
 
 from Utility.log import *
 from optparse import OptionParser
@@ -191,8 +191,8 @@ def EtlSched(etlclass,conffile,timerange,debugmode,job_name,process):
                             return (False,'%s_%s_%s_%s' % (conffile,job['job_name'],action["step_name"],runtime))
                         else:
                             FailedRecover(conffile,runtime,run_log)
-                            dqsvalue = {'type':'job','title':'ETL','program':'%s_%s_%s_%s' % (conffile,job['job_name'],action["step_name"],runtime),'state':0,'msg':'%s_%s_%s_etl_failed' % (conffile,action["step_name"],runtime)}
-                            DqsAlarm.DQSAlarm('job',dqsvalue)                                          
+                            #dqsvalue = {'type':'job','title':'ETL','program':'%s_%s_%s_%s' % (conffile,job['job_name'],action["step_name"],runtime),'state':0,'msg':'%s_%s_%s_etl_failed' % (conffile,action["step_name"],runtime)}
+                            #DqsAlarm.DQSAlarm('job',dqsvalue)                                          
                             return (False,'%s_%s_%s_%s' % (conffile,job['job_name'],action["step_name"],runtime))
     
     return (True,'')
